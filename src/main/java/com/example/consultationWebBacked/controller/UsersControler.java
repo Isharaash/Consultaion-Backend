@@ -1,10 +1,8 @@
 package com.example.consultationWebBacked.controller;
 
-import com.example.consultationWebBacked.DTO.ResponseDTO;
-import com.example.consultationWebBacked.DTO.ScheduleDTO;
-import com.example.consultationWebBacked.DTO.TokenDTO;
-import com.example.consultationWebBacked.DTO.UsersDTO;
+import com.example.consultationWebBacked.DTO.*;
 import com.example.consultationWebBacked.DTO.requestDTO.RegistrationOrLoginAdminsDTO;
+import com.example.consultationWebBacked.service.AppointmentService;
 import com.example.consultationWebBacked.service.ScheduleService;
 import com.example.consultationWebBacked.service.UserService;
 import com.example.consultationWebBacked.util.VarList;
@@ -22,9 +20,12 @@ public class UsersControler {
     @Autowired
     private ResponseDTO responseDTO;
     private final UserService userService;
+    private final AppointmentService appointmentService;
     private final ScheduleService scheduleService;
-    public UsersControler(UserService userService, ScheduleService scheduleService) {
+    public UsersControler(ResponseDTO responseDTO, UserService userService, AppointmentService appointmentService, ScheduleService scheduleService) {
+        this.responseDTO = responseDTO;
         this.userService = userService;
+        this.appointmentService = appointmentService;
         this.scheduleService = scheduleService;
     }
 
@@ -173,6 +174,36 @@ public class UsersControler {
         }
     }
 
+    @PostMapping(value = "/CreateAppointment")
+    public ResponseEntity saveAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        try {
+            String res = appointmentService.saveAppointment(appointmentDTO);
+            if (res.equals("00")) {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(appointmentDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
+            } else if (res.equals("06")) {
+                responseDTO.setCode(VarList.RSP_DUPLICATED);
+                responseDTO.setMessage("Employee Registered");
+                responseDTO.setContent(appointmentDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            } else {
+                responseDTO.setCode(VarList.RSP_FAIL);
+                responseDTO.setMessage("Error");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+
+        } catch (Exception ex) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+
+    }
 
 }
