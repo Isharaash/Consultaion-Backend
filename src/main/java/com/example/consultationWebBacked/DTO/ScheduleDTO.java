@@ -4,24 +4,23 @@ public class ScheduleDTO {
     private int id;
     private String name;
     private String date;
-
     private String day;
     private String ftime;
 
     private String ttime;
-    private String status;
+    private String category;
 
     public ScheduleDTO() {
     }
 
-    public ScheduleDTO(int id, String name, String date, String day, String ftime, String ttime, String status) {
+    public ScheduleDTO(int id, String name, String date, String day, String ftime, String ttime, String category) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.day = day;
         this.ftime = ftime;
         this.ttime = ttime;
-        this.status = status;
+        this.category = category;
     }
 
     public int getId() {
@@ -72,11 +71,11 @@ public class ScheduleDTO {
         this.ttime = ttime;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCategory() {
+        return category;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
