@@ -205,5 +205,22 @@ public class UsersControler {
         }
 
     }
+    @GetMapping("/getAllAppointment")
+    public ResponseEntity getAllAppointment() {
+        try {
+            List<AppointmentDTO> employeeDTOList = appointmentService.getAllAppointment();
+            responseDTO.setCode(VarList.RSP_SUCCESS);
+            responseDTO.setMessage("Success");
+            responseDTO.setContent(employeeDTOList);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        } catch (Exception ex) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
 
 }
