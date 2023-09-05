@@ -1,7 +1,11 @@
 package com.example.consultationWebBacked.DTO;
 
-public record UsersDTO( Long id,
-                        String email,
-                        String name
+import javax.management.relation.Role;
+
+public record UsersDTO(Long id,
+                       String email,
+                       String name
+
+
 ) {
 }

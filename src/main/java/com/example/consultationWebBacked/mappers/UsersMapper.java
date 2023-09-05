@@ -15,11 +15,12 @@ public class UsersMapper {
                 registrationOrLoginForAdminsDTO.role()
         );
     }
-    public UsersDTO EntityToDTO(Users admins) {
+    public UsersDTO EntityToDTO(Users user) {
         return new UsersDTO(
-                admins.getId(),
-                admins.getEmail(),
-                admins.getName()
+                user.getId(),
+                user.getEmail(),
+                user.getName()
+
 
         );
     }
