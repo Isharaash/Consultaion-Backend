@@ -44,5 +44,12 @@ public class AppointmentService {
             return null;
         }
     }
-
+    public String deleteAppointment(int id){
+        if (appointmentRepo.existsById(id)){
+            appointmentRepo.deleteById(id);
+            return VarList.RSP_SUCCESS;
+        }else {
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
 }
