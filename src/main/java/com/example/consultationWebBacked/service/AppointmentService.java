@@ -36,6 +36,13 @@ public class AppointmentService {
         return modelMapper.map(employeeList,new TypeToken<ArrayList<AppointmentDTO>>(){
         }.getType());
     }
-
+    public AppointmentDTO searchAppointment(int id){
+        if (appointmentRepo.existsById(id)){
+            Appointment employee =appointmentRepo.findById(id).orElse(null);
+            return modelMapper.map(employee, AppointmentDTO.class);
+        }else {
+            return null;
+        }
+    }
 
 }
