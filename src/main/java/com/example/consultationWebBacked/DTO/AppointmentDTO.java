@@ -3,12 +3,12 @@ package com.example.consultationWebBacked.DTO;
 public class AppointmentDTO {
     private int id;
     private String fName;
-    private String mName;
-    private String lNamed;
     private String address;
     private String age;
     private String dob;
     private String sex;
+    private String category;
+    private String country;
     private String date;
     private String time;
     private String email;
@@ -17,15 +17,15 @@ public class AppointmentDTO {
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(int id, String fName, String mName, String lNamed, String address, String age, String dob, String sex, String date, String time, String email, String phone) {
+    public AppointmentDTO(int id, String fName, String address, String age, String dob, String sex, String category, String country, String date, String time, String email, String phone) {
         this.id = id;
         this.fName = fName;
-        this.mName = mName;
-        this.lNamed = lNamed;
         this.address = address;
         this.age = age;
         this.dob = dob;
         this.sex = sex;
+        this.category = category;
+        this.country = country;
         this.date = date;
         this.time = time;
         this.email = email;
@@ -46,22 +46,6 @@ public class AppointmentDTO {
 
     public void setfName(String fName) {
         this.fName = fName;
-    }
-
-    public String getmName() {
-        return mName;
-    }
-
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
-    public String getlNamed() {
-        return lNamed;
-    }
-
-    public void setlNamed(String lNamed) {
-        this.lNamed = lNamed;
     }
 
     public String getAddress() {
@@ -94,6 +78,22 @@ public class AppointmentDTO {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getDate() {
