@@ -51,8 +51,8 @@ public class WebSecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/create").permitAll()
-                .requestMatchers("/api/v1/login").permitAll()
+                .requestMatchers("/api/v1/**").permitAll()
+                .requestMatchers("/api/v1/**").permitAll()
                 .requestMatchers("/api/v1/logout").permitAll()
                 .anyRequest()
                 .authenticated()

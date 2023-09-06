@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class ScheduleService {
@@ -39,7 +41,7 @@ public class ScheduleService {
         }.getType());
     }
 
-    public ScheduleDTO searchSchedule(int id){
+    public ScheduleDTO searchSchedule(int id ){
         if (scheduleRepo.existsById(id)){
             Schedule schedule =scheduleRepo.findById(id).orElse(null);
             return modelMapper.map(schedule, ScheduleDTO.class);
@@ -47,6 +49,17 @@ public class ScheduleService {
             return null;
         }
     }
+    public ScheduleDTO searchSchedule2(String name ){
+        Optional<Schedule> scheduleOptional = scheduleRepo.findByName(name);
+
+        if (scheduleOptional.isPresent()) {
+            Schedule schedule = scheduleOptional.get();
+            return modelMapper.map(schedule, ScheduleDTO.class);
+        } else {
+            return null;
+        }
+    }
+
     public String deleteSchedule(int id){
         if (scheduleRepo.existsById(id)){
             scheduleRepo.deleteById(id);
