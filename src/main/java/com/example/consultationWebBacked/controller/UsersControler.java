@@ -281,4 +281,21 @@ public class UsersControler {
             return "Failed to send and save email: " + e.getMessage();
         }
     }
+    @GetMapping("/AllEmail")
+    public ResponseEntity getAllEmail() {
+        try {
+            List<MailDTO> MailDTOList = mailService.getAllEmail();
+            responseDTO.setCode(VarList.RSP_SUCCESS);
+            responseDTO.setMessage("Success");
+            responseDTO.setContent(MailDTOList);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        } catch (Exception ex) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
 }

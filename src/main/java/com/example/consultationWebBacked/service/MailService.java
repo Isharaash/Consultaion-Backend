@@ -4,10 +4,14 @@ import com.example.consultationWebBacked.DTO.MailDTO;
 import com.example.consultationWebBacked.entity.Mails;
 import com.example.consultationWebBacked.repositories.MailRepo;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MailService {
@@ -44,4 +48,10 @@ public class MailService {
             e.printStackTrace();
         }
     }
+    public List<MailDTO> getAllEmail(){
+        List<Mails> MailsList = mailRepo.findAll();
+        return modelMapper.map(MailsList,new TypeToken<ArrayList<MailDTO>>(){
+        }.getType());
+    }
+
 }
