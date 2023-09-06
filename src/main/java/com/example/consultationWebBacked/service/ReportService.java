@@ -31,28 +31,53 @@ public class ReportService {
             document.add(title);
 
             PdfPTable table = new PdfPTable(7);
+            table.setWidthPercentage(110);
 
+            Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            PdfPCell cell = new PdfPCell(new Phrase("Full Name", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
             // Add headers to the table
-            table.addCell("Full Name");
-            table.addCell("Job Type");
-            table.addCell("Country");
-            table.addCell("Appointment Date");
-            table.addCell("Appointment Time");
-            table.addCell("E-mail");
-            table.addCell("Phone");
+
+
+            cell = new PdfPCell(new Phrase("Job Type", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Job Type", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Appointment Date", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Appointment Time", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("E-mail", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Phone", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+
 
 
 
             // Add content to the table
+            Font contentFont = new Font(Font.FontFamily.HELVETICA, 10); // Customize the content font size
             for (Appointment appointment : appointments) {
-                table.addCell(appointment.getfName());
-                table.addCell(appointment.getCategory());
-                table.addCell(appointment.getCountry());
-                table.addCell(appointment.getDate());
-                table.addCell(appointment.getTime());
-                table.addCell(appointment.getEmail());
-                table.addCell(appointment.getPhone());
-
+                table.addCell(new PdfPCell(new Phrase(appointment.getfName(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getCategory(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getCountry(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getDate(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getTime(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getEmail(), contentFont)));
+                table.addCell(new PdfPCell(new Phrase(appointment.getPhone(), contentFont)));
             }
 
             // Add the table to the document
