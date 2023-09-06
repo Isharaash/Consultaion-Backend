@@ -3,6 +3,7 @@ package com.example.consultationWebBacked.controller;
 import com.example.consultationWebBacked.DTO.*;
 import com.example.consultationWebBacked.DTO.requestDTO.RegistrationOrLoginAdminsDTO;
 import com.example.consultationWebBacked.service.AppointmentService;
+import com.example.consultationWebBacked.service.MailService;
 import com.example.consultationWebBacked.service.ScheduleService;
 import com.example.consultationWebBacked.service.UserService;
 import com.example.consultationWebBacked.util.VarList;
@@ -20,11 +21,13 @@ public class UsersControler {
     @Autowired
     private ResponseDTO responseDTO;
     private final UserService userService;
+    private final MailService mailService;
     private final AppointmentService appointmentService;
     private final ScheduleService scheduleService;
-    public UsersControler(ResponseDTO responseDTO, UserService userService, AppointmentService appointmentService, ScheduleService scheduleService) {
+    public UsersControler(ResponseDTO responseDTO, UserService userService, MailService mailService, AppointmentService appointmentService, ScheduleService scheduleService) {
         this.responseDTO = responseDTO;
         this.userService = userService;
+        this.mailService = mailService;
         this.appointmentService = appointmentService;
         this.scheduleService = scheduleService;
     }
@@ -267,6 +270,15 @@ public class UsersControler {
             responseDTO.setMessage(e.getMessage());
             responseDTO.setContent(e);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping("/emailSend")
+    public String sendEmail(@RequestBody MailDTO mailDTO) {
+        try {
+            mailService.sendEmail(mailDTO);
+            return "Email sent and saved successfully";
+        } catch (Exception e) {
+            return "Failed to send and save email: " + e.getMessage();
         }
     }
 }
