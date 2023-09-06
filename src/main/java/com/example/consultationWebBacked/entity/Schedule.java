@@ -16,7 +16,7 @@ public class Schedule {
 
     private String ttime;
 
-    private String category;;
+    private String category;
     public Schedule() {
     }
 
