@@ -6,6 +6,8 @@ import com.example.consultationWebBacked.entity.Appointment;
 import com.example.consultationWebBacked.service.*;
 import com.example.consultationWebBacked.util.VarList;
 import com.itextpdf.text.DocumentException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -29,12 +32,16 @@ public class UsersControler {
     @Autowired
     private ResponseDTO responseDTO;
     private final UserService userService;
+
+
     private final MailService mailService;
     private final AppointmentService appointmentService;
     private final ScheduleService scheduleService;
-    public UsersControler(ResponseDTO responseDTO, UserService userService, MailService mailService, AppointmentService appointmentService, ScheduleService scheduleService) {
+    public UsersControler(ReportService reportService, ResponseDTO responseDTO, UserService userService, MailService mailService, AppointmentService appointmentService, ScheduleService scheduleService) {
+        this.reportService = reportService;
         this.responseDTO = responseDTO;
         this.userService = userService;
+
         this.mailService = mailService;
         this.appointmentService = appointmentService;
         this.scheduleService = scheduleService;
@@ -58,6 +65,21 @@ public class UsersControler {
     public List<UsersDTO> getAllUsers() {
         return userService.getAllAdmins();
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Perform logout logic here, e.g., invalidate the user's session or clear authentication tokens
+        // You can also revoke the user's JWT token if applicable
+
+        // Clear any authentication cookies or tokens
+        // For example, if using JWT, you might want to blacklist the token or simply clear it from the client-side
+
+        // Invalidate the user's session
+        request.getSession().invalidate();
+
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping(value = "/saveSchedule")
     public ResponseEntity saveSchedule(@RequestBody ScheduleDTO scheduleDTO) {

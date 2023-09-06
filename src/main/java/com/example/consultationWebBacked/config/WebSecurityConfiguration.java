@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration {
@@ -48,13 +49,11 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
-
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/**").permitAll()
-
-
+                .requestMatchers("/api/v1/create").permitAll()
+                .requestMatchers("/api/v1/login").permitAll()
+                .requestMatchers("/api/v1/logout").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
