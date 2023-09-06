@@ -177,7 +177,28 @@ public class UsersControler {
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/searchcategoryschedulet/{category}")
+    public ResponseEntity searchSchedule3(@PathVariable String category) {
+        try {
+            ScheduleDTO scheduleDTO = scheduleService.searchSchedule3(category);
+            if (scheduleDTO != null) {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(scheduleDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            } else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No Employee Available For this empID");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(e);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping(value = "/updateSchedulet")
     public ResponseEntity updateSchedulet(@RequestBody ScheduleDTO scheduleDTO) {
         try {

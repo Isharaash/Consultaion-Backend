@@ -60,6 +60,17 @@ public class ScheduleService {
         }
     }
 
+    public ScheduleDTO searchSchedule3(String category ){
+        Optional<Schedule> scheduleOptional = scheduleRepo.findBycategory(category);
+
+        if (scheduleOptional.isPresent()) {
+            Schedule schedule = scheduleOptional.get();
+            return modelMapper.map(schedule, ScheduleDTO.class);
+        } else {
+            return null;
+        }
+    }
+
     public String deleteSchedule(int id){
         if (scheduleRepo.existsById(id)){
             scheduleRepo.deleteById(id);

@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ScheduleRepo  extends JpaRepository<Schedule,Integer> {
 
     Optional<Schedule> findByName(String name);
+    Optional<Schedule> findBycategory(String category);
 }
