@@ -52,4 +52,7 @@ public class AppointmentService {
             return VarList.RSP_NO_DATA_FOUND;
         }
     }
+    public List<Appointment> getallAppointmen() {
+        return appointmentRepo.findAll();
+    }
 }
