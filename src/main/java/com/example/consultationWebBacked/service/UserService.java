@@ -32,7 +32,7 @@ public class UserService {
     }
 
 
-    public TokenDTO createAdmin(RegistrationOrLoginAdminsDTO registrationOrLoginAdminsDTO){
+    public TokenDTO createUsers(RegistrationOrLoginAdminsDTO registrationOrLoginAdminsDTO){
         Users admin = usersMapper.dtoToEntityForRegOrLogin(registrationOrLoginAdminsDTO);
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setRole(registrationOrLoginAdminsDTO.role());

@@ -7,4 +7,5 @@ public record RegistrationOrLoginAdminsDTO(String email,
                                            String password,
                                            Roles role) {
 
+
 }

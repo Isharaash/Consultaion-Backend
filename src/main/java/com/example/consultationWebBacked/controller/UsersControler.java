@@ -49,7 +49,7 @@ public class UsersControler {
 
     @PostMapping(path = "/create")
     public TokenDTO createUsers(@RequestBody RegistrationOrLoginAdminsDTO registrationOrLoginAdminsDTO) {
-        return userService.createAdmin(registrationOrLoginAdminsDTO);
+        return userService.createUsers(registrationOrLoginAdminsDTO);
     }
 
 
@@ -310,6 +310,53 @@ public class UsersControler {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setMessage("Success");
                 responseDTO.setContent(employeeDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            } else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No Employee Available For this empID");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(e);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/searchAppointment2/{category}")
+    public ResponseEntity searchAppointment2(@PathVariable String category) {
+        try {
+            AppointmentDTO appointmentDTO = appointmentService.searchAppointment2(category);
+            if (appointmentDTO != null) {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(appointmentDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            } else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No Employee Available For this empID");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(e);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/searchAppointment3/{date}")
+    public ResponseEntity searchAppointment3(@PathVariable String date) {
+        try {
+            AppointmentDTO appointmentDTO = appointmentService.searchAppointment3(date);
+            if (appointmentDTO != null) {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(appointmentDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             } else {
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);

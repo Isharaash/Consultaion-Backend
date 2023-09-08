@@ -1,7 +1,6 @@
 package com.example.consultationWebBacked.service;
 
 import com.example.consultationWebBacked.DTO.ScheduleDTO;
-import com.example.consultationWebBacked.DTO.UsersDTO;
 import com.example.consultationWebBacked.entity.Schedule;
 import com.example.consultationWebBacked.repositories.ScheduleRepo;
 import com.example.consultationWebBacked.util.VarList;
@@ -90,6 +89,7 @@ public class ScheduleService {
         }
     }
 
-    }
+
+}
 
 

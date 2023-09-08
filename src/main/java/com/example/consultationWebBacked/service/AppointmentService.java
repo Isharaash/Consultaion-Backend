@@ -1,7 +1,9 @@
 package com.example.consultationWebBacked.service;
 
 import com.example.consultationWebBacked.DTO.AppointmentDTO;
+import com.example.consultationWebBacked.DTO.ScheduleDTO;
 import com.example.consultationWebBacked.entity.Appointment;
+import com.example.consultationWebBacked.entity.Schedule;
 import com.example.consultationWebBacked.repositories.AppointmentRepo;
 import com.example.consultationWebBacked.util.VarList;
 import jakarta.transaction.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -44,6 +47,28 @@ public class AppointmentService {
             return null;
         }
     }
+    public AppointmentDTO searchAppointment2(String category ){
+        Optional<Appointment> appointmentOptional = appointmentRepo.findBycategory(category);
+
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            return modelMapper.map(appointment, AppointmentDTO.class);
+        } else {
+            return null;
+        }
+    }
+    public AppointmentDTO searchAppointment3(String date ){
+        Optional<Appointment> appointmentOptional = appointmentRepo.findBydate(date);
+
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            return modelMapper.map(appointment, AppointmentDTO.class);
+        } else {
+            return null;
+        }
+    }
+
+
     public String deleteAppointment(int id){
         if (appointmentRepo.existsById(id)){
             appointmentRepo.deleteById(id);
